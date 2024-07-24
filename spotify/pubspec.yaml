@@ -24,15 +24,22 @@ dependencies:
   shared_preferences: ^2.2.3
   firebase_core: ^3.2.0
   firebase_messaging: ^15.0.3
-  logger: ^2.4.0
+  logger: ^2.2.0
+  flutter_launcher_icons: ^0.13.1
+  envied: ^0.5.4+1
+  curved_navigation_bar: ^1.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  envied_generator: ^0.5.4+1
+  build_runner: ^2.4.11
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/
     - assets/icons/
+
+flutter_launcher_icons:

@@ -15,7 +15,7 @@ class AppConfigUrl {
   //* BASE URL
   static const BASE_URL = "$HOST/";
   //* ENV
-  static const DEV = 'https://code_base_dev';
+  static const DEV = 'https://api.spotify.com/v1/';
   static const QAT = 'https://code_base_qat';
   static const UAT = 'https://code_base_uat';
   static const PROD = 'https://code_base_prod';
@@ -26,6 +26,8 @@ class AppConfigUrl {
   //? LIST URL API
 
   // * ===== REGISTER | LOGIN =====
-  static const SIGN_UP = "auth/signup";
-  static const LOGIN = "auth/login";
+  static const TOKEN = "https://accounts.spotify.com/api/token";
+
+  // * API
+  static const CURRENT_USER = "me";
 }

@@ -1,6 +1,13 @@
 import 'dart:developer';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:spotify/api/app_config_url.dart';
+import 'package:spotify/base_class/storage/app_shared_preferences.dart';
+import 'package:spotify/base_class/storage/keystore.dart';
+import 'package:spotify/data/models/token/token_res.dart';
 
 class Utils {
   static final Utils _singleton = Utils._internal();
@@ -79,4 +86,46 @@ void printDebug(String string) {
     // print(string);
     log(string);
   }
+}
+
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
+
+Future<TokenRes?> appGetToken(
+  String clientId,
+  String clientSecret,
+) async {
+  try {
+    final Dio dio = Dio();
+    final response = await dio.post(
+      AppConfigUrl.TOKEN,
+      options: Options(
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/x-www-form-urlencoded',
+        },
+      ),
+      data: {
+        'grant_type': 'client_credentials',
+        'client_id': clientId,
+        'client_secret': clientSecret,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      TokenRes tokenRes = TokenRes.fromJson(response.data);
+
+      AppSharedPreferences().setSharedPreferences(
+        key: KeyStore.TOKEN,
+        value: "${tokenRes.tokenType} ${tokenRes.accessToken}",
+      );
+      return tokenRes;
+    } else {
+      logger.w('Failed to get token. Status code: ${response.statusCode}');
+      return null;
+    }
+  } on DioException catch (e) {
+    logger.e('Error getting token: $e');
+  }
+  return null;
 }

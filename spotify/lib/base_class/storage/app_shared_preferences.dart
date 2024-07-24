@@ -37,7 +37,7 @@ class AppSharedPreferences {
         break;
     }
     log(
-      "SET [$key] === [$result]",
+      "SET [$key] === [$value]",
       name: "APP_SHARED_PREFERENCES",
     );
     return result;
@@ -50,7 +50,7 @@ class AppSharedPreferences {
     _prefs ??= await SharedPreferences.getInstance();
 
     var value = _prefs!.get(key);
-    log("GET [$key] === [ $value ]", name: "APP_SHARED_PREFERENCES");
+    log("GET [$key] === [$value]", name: "APP_SHARED_PREFERENCES");
 
     return value ?? defaultValue;
   }

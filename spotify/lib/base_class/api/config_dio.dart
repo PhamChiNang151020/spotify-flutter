@@ -1,8 +1,9 @@
-import 'package:spotify/api/app_config_url.dart';
 import 'package:dio/dio.dart';
-
 import 'dart:io';
 import 'package:dio/io.dart';
+import 'package:spotify/api/app_config_url.dart';
+import 'package:spotify/base_class/storage/app_shared_preferences.dart';
+import 'package:spotify/base_class/storage/keystore.dart';
 
 Future<void> configDio(Dio dio) async {
   if (Platform.isAndroid) {
@@ -28,6 +29,8 @@ Future<void> configDio(Dio dio) async {
 
   // * Add token if authentication by header is enabled
   // var token = await AppSharedPreferences().getSharedPreferences(TOKEN);
+  var auth =
+      await AppSharedPreferences().getSharedPreferences(key: KeyStore.TOKEN);
   // dio.options.headers["x-access-token"] = token;
-  // dio.options.headers["Authorization"] = getBasicAuth();
+  dio.options.headers["Authorization"] = auth;
 }

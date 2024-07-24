@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MyColors {
-  static const defaultColor = Color(0xFF4ED9DF);
-
+  static const defaultColor = Color.fromARGB(255, 101, 211, 110);
   //* TEXT
   static const defaultText = Colors.black;
   static const errorText = Colors.red;

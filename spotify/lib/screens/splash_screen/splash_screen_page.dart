@@ -1,4 +1,5 @@
 import 'package:spotify/base_class/bloc/base_bloc_page.dart';
+import 'package:spotify/screens/splash_screen/splash_screen_event.dart';
 import 'package:spotify/utils/utils.dart';
 import 'splash_screen_bloc.dart';
 import 'splash_screen_form.dart';
@@ -14,7 +15,7 @@ class SplashScreenPage extends BaseBlocPage<SplashScreenBloc> {
 
   @override
   SplashScreenBloc myBloc(BuildContext context) {
-    return SplashScreenBloc(initialState, context);
+    return SplashScreenBloc(initialState, context)..add(GetInfoEvent());
   }
 }
 
