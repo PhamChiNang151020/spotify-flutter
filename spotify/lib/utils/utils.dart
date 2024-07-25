@@ -129,3 +129,7 @@ Future<TokenRes?> appGetToken(
   }
   return null;
 }
+
+EdgeInsets getPaddingSafeArea(BuildContext context) {
+  return MediaQuery.of(context).padding;
+}

@@ -4,7 +4,9 @@ import 'package:spotify/base_class/bloc/base_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:spotify/common/my_assets.dart';
+import 'package:spotify/utils/utils.dart';
 import 'package:spotify/widgets/svg_png/widget_icon.dart';
+import 'package:spotify/widgets/svg_png/widget_svg.dart';
 import 'home.dart';
 
 class HomeForm extends StatefulWidget {
@@ -17,10 +19,25 @@ class HomeForm extends StatefulWidget {
 class _HomeFormState extends BaseBLocFormStateFull<HomeBloc, HomeForm> {
   @override
   Widget getWidget(BuildContext context, BaseBlocState state) {
+    EdgeInsets devicePadding = MediaQuery.of(context).padding;
     return Column(
       children: [
-        Text("HOME SCREEN"),
-        Text("HOME SCREEN"),
+        Padding(
+          padding: EdgeInsets.only(
+            top: getPaddingSafeArea(context).top,
+            right: 15,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: const SvgWidget(assetName: MyAssets.icSetting),
+              )
+            ],
+          ),
+        ),
+        // Text("HOME SCREEN"),
       ],
     );
   }

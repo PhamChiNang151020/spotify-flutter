@@ -6,6 +6,7 @@ import 'package:spotify/common/common.dart';
 
 import 'package:flutter/material.dart';
 import 'package:spotify/screens/home/home.dart';
+import 'package:spotify/screens/login/login.dart';
 import 'package:spotify/screens/main/main_page.dart';
 import 'package:spotify/screens/splash_screen/splash_screen_state.dart';
 import 'package:spotify/widgets/svg_png/widget_svg.dart';
@@ -33,9 +34,8 @@ class _SplashScreenFormState
     // );
     return const Center(
       child: SvgWidget(
-        assetName: MyAssets.ic_logo,
-        width: 200,
-        height: 200,
+        assetName: MyAssets.logo,
+        size: 200,
       ),
     );
   }
@@ -43,9 +43,13 @@ class _SplashScreenFormState
   @override
   void listener(BuildContext context, BaseBlocState state) {
     if (state is GetInfoSuccess) {
-      AppSharedPreferences().getSharedPreferences(key: KeyStore.TOKEN);
+      if (state.isLogged == true) {
+        gotoMainPage(context: context);
+      } else {
+        gotoLoginPage(context: context);
+      }
+      // AppSharedPreferences().getSharedPreferences(key: KeyStore.TOKEN);
       // gotoHomePage(context: context);
-      gotoMainPage(context: context);
     }
   }
 }

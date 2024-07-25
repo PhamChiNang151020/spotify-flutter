@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/base_class/bloc/base_bloc.dart';
-import 'notification.dart';
+import 'sign_up.dart';
 
-class NotificationBloc extends BaseBloc{
-  NotificationBloc(super.initialState, super.context){
+class SignUpBloc extends BaseBloc{
+  SignUpBloc(super.initialState, super.context){
     //on<ExampleEvent>(_exampleEvent);
   }
 

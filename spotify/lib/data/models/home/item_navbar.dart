@@ -1,28 +1,34 @@
 class ItemNavbar {
-  String icon;
+  String iconActive;
+  String iconInActive;
   String name;
 
   ItemNavbar({
-    required this.icon,
+    required this.iconActive,
+    required this.iconInActive,
     required this.name,
   });
 
   ItemNavbar copyWith({
-    String? icon,
+    String? iconActive,
+    String? iconInActive,
     String? name,
   }) =>
       ItemNavbar(
-        icon: icon ?? this.icon,
+        iconActive: iconActive ?? this.iconActive,
+        iconInActive: iconInActive ?? this.iconInActive,
         name: name ?? this.name,
       );
 
   factory ItemNavbar.fromJson(Map<String, dynamic> json) => ItemNavbar(
-        icon: json["icon"],
+        iconActive: json["iconActive"],
+        iconInActive: json["iconInActive"],
         name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "icon": icon,
+        "iconActive": iconActive,
+        "iconInActive": iconInActive,
         "name": name,
       };
 }

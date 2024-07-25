@@ -5,15 +5,16 @@ import 'package:spotify/base_class/bloc/base_state.dart';
 import 'package:spotify/common/common.dart';
 import 'package:spotify/data/models/home/item_navbar.dart';
 import 'package:spotify/screens/home/home.dart';
+import 'package:spotify/screens/library/library.dart';
 import 'package:spotify/screens/main/main_bloc.dart';
 import 'package:spotify/screens/main/main_event.dart';
 import 'package:spotify/screens/main/main_state.dart';
-import 'package:spotify/screens/notification/notification.dart';
 import 'package:spotify/screens/profile/profile.dart';
 import 'package:spotify/screens/search/search_bloc.dart';
 import 'package:spotify/screens/search/search_form.dart';
 import 'package:spotify/screens/search/search_state.dart';
 import 'package:spotify/widgets/svg_png/widget_icon.dart';
+import 'package:spotify/widgets/svg_png/widget_svg.dart';
 
 class MainForm extends StatefulWidget {
   const MainForm({super.key});
@@ -26,10 +27,18 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
   int selectedIndex = 0;
 
   final List<ItemNavbar> listItemNavbar = [
-    ItemNavbar(icon: MyAssets.icHome, name: "Home"),
-    ItemNavbar(icon: MyAssets.icSearch, name: "Search"),
-    ItemNavbar(icon: MyAssets.icNotification, name: "Notification"),
-    ItemNavbar(icon: MyAssets.icPerson, name: "Profile"),
+    ItemNavbar(
+        iconActive: MyAssets.icHomeActive,
+        iconInActive: MyAssets.icHomeInActive,
+        name: "Home"),
+    ItemNavbar(
+        iconActive: MyAssets.icSearchActive,
+        iconInActive: MyAssets.icSearchInActive,
+        name: "Search"),
+    ItemNavbar(
+        iconActive: MyAssets.icLibActive,
+        iconInActive: MyAssets.icLibInActive,
+        name: "Library"),
   ];
 
   final List<Widget> listView = [
@@ -40,12 +49,8 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
         create: (context) => SearchBloc(SearchLoadSuccess(), context),
         child: const SearchForm()),
     BlocProvider(
-        create: (context) =>
-            NotificationBloc(NotificationLoadSuccess(), context),
-        child: const NotificationForm()),
-    BlocProvider(
-        create: (context) => ProfileBloc(ProfileLoadSuccess(), context),
-        child: const ProfileForm()),
+        create: (context) => LibraryBloc(LibraryLoadSuccess(), context),
+        child: const LibraryForm()),
   ];
 
   @override
@@ -68,26 +73,18 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
   Widget _buildBottomNavigationBar() {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        margin: const EdgeInsets.symmetric(horizontal: 15),
+        // padding: const EdgeInsets.symmetric(horizontal: 30),
+        // margin: const EdgeInsets.symmetric(horizontal: 15),
         height: 55,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 0, 0, 0),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            )
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(
-            listItemNavbar.length,
-            (index) => _buildNavItem(index),
+        decoration: const BoxDecoration(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              listItemNavbar.length,
+              (index) => _buildNavItem(index),
+            ),
           ),
         ),
       ),
@@ -103,7 +100,7 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
         });
       },
       child: IconNavbar(
-        icon: listItemNavbar[index].icon,
+        itemNavbar: listItemNavbar[index],
         isActive: index == selectedIndex,
       ),
     );
@@ -113,39 +110,45 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
 class IconNavbar extends StatelessWidget {
   const IconNavbar({
     super.key,
-    required this.icon,
+    required this.itemNavbar,
     required this.isActive,
   });
 
-  final String icon;
+  final ItemNavbar itemNavbar;
   final bool isActive;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          height: 5,
-          width: isActive ? 25 : 0,
-          decoration: BoxDecoration(
-            color: isActive ? MyColors.defaultColor : Colors.transparent,
-            borderRadius: BorderRadius.circular(5),
-          ),
-        ),
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: WidgetIcon(
-              pathIcon: icon,
-              size: 30,
-              color: isActive ? MyColors.defaultColor : Colors.white,
+    return PopScope(
+      canPop: false,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: isActive
+                  ? SvgWidget(
+                      assetName: itemNavbar.iconActive,
+                      size: 30,
+                    )
+                  : SvgWidget(
+                      assetName: itemNavbar.iconInActive,
+                      size: 30,
+                    ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 3),
+          Text(
+            itemNavbar.name,
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: isActive ? FontWeight.bold : null,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

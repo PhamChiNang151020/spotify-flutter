@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'base_state.dart';
 
-abstract class BaseBLocFormStateFull<bloc extends Bloc<dynamic, BaseBlocState>,
+abstract class BaseBLocFormStateFullAppBar<
+    bloc extends Bloc<dynamic, BaseBlocState>,
     statefulWidget extends StatefulWidget> extends State<statefulWidget> {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,13 @@ abstract class BaseBLocFormStateFull<bloc extends Bloc<dynamic, BaseBlocState>,
       },
       child: BlocBuilder<bloc, BaseBlocState>(
         builder: (context, blocState) {
-          return Scaffold(body: getWidget(context, blocState));
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: getTitle(),
+            ),
+            body: SafeArea(child: getWidget(context, blocState)),
+          );
         },
       ),
     );
@@ -24,4 +32,6 @@ abstract class BaseBLocFormStateFull<bloc extends Bloc<dynamic, BaseBlocState>,
   void listener(BuildContext context, BaseBlocState state);
 
   bloc getBloc() => context.read<bloc>();
+
+  Widget getTitle();
 }

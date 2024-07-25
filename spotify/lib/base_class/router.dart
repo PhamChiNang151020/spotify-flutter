@@ -1,10 +1,13 @@
 // import 'package:fertility/page/log_in/log_in_page.dart';
 import 'package:spotify/screens/coming_soon/coming_soon_page.dart';
 import 'package:spotify/screens/home/home.dart';
+import 'package:spotify/screens/library/library_page.dart';
+import 'package:spotify/screens/login/login.dart';
 import 'package:spotify/screens/main/main_page.dart';
-import 'package:spotify/screens/notification/notification.dart';
+
 import 'package:spotify/screens/profile/profile_page.dart';
 import 'package:spotify/screens/search/search.dart';
+import 'package:spotify/screens/sign_up/sign_up_page.dart';
 import 'package:spotify/screens/splash_screen/splash_screen_page.dart';
 import 'package:spotify/utils/screen_key.dart';
 
@@ -16,14 +19,18 @@ PageRouteBuilder routerWithData(RouteSettings settings) {
       switch (settings.name) {
         case SPLASH_SCREEN:
           return splashScreenPage(settings);
+        case LOGIN_SCREEN:
+          return loginPage(settings);
+        case SIGN_UP_SCREEN:
+          return signUpPage(settings);
         case MAIN_SCREEN:
           return mainPage(settings);
         case HOME_SCREEN:
           return homePage(settings);
         case SEARCH_SCREEN:
           return searchPage(settings);
-        case NOTIFICATION_SCREEN:
-          return notificationPage(settings);
+        case LIBRARY_SCREEN:
+          return libraryPage(settings);
         case PROFILE_SCREEN:
           return profilePage(settings);
         default:
@@ -46,7 +53,7 @@ Map<String, WidgetBuilder> routerWithNamed() {
 
 Map getArguments(RouteSettings settings) {
   Map arguments = settings.arguments as Map;
-  return arguments; 
+  return arguments;
 }
 
 SlideTransition _slideTransition(Animation<double> animation, Widget child) {

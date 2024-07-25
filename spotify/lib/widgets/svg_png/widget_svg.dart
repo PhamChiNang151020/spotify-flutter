@@ -5,14 +5,13 @@ class SvgWidget extends StatelessWidget {
   const SvgWidget({
     super.key,
     required this.assetName,
-    this.width,
-    this.height,
+    this.size,
     this.fit,
   });
 
   final String assetName;
-  final double? width;
-  final double? height;
+  final double? size;
+
   final BoxFit? fit;
 
   @override
@@ -20,8 +19,8 @@ class SvgWidget extends StatelessWidget {
     return SvgPicture.asset(
       assetName,
       fit: fit ?? BoxFit.contain,
-      width: width ?? 100,
-      height: height ?? 100,
+      width: size ?? 30,
+      height: size ?? 30,
     );
   }
 }

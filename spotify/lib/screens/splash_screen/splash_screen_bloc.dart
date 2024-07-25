@@ -23,13 +23,6 @@ class SplashScreenBloc extends BaseBloc {
     on<GetInfoEvent>(_getInfo);
   }
 
-  // Future<void> _exampleEvent(
-  //     CreateEnquiry event,
-  //     Emitter<BaseBlocState> emit,
-  //     ) async {
-  // do something in here
-  // }
-
   Future<void> _getInfo(
     GetInfoEvent event,
     Emitter<BaseBlocState> emit,
@@ -37,7 +30,14 @@ class SplashScreenBloc extends BaseBloc {
     try {
       // await appGetToken(Env.CLIENT_ID, Env.CLIENT_SECRET);
       await Future.delayed(const Duration(seconds: 1));
-      emit(GetInfoSuccess());
+      var isLogged = await AppSharedPreferences()
+          .getSharedPreferences(key: KeyStore.IS_LOGGED_IN);
+
+      if (isLogged == null) {
+        emit(GetInfoSuccess(isLogged: false));
+      } else {
+        emit(GetInfoSuccess(isLogged: true));
+      }
     } catch (e) {
       logger.e(e);
     }
