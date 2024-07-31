@@ -11,7 +11,8 @@ class PopupLoading {
     return Container(
       width: width,
       height: height,
-      color: MyColors.defaultColor,
+      color: const Color.fromARGB(34, 30, 215, 95),
+      child: const Center(child: CircularProgressIndicator()),
       // child: WidgetLoading(),
     );
   });

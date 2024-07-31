@@ -28,6 +28,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   envied: ^0.5.4+1
   curved_navigation_bar: ^1.0.6
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -41,5 +42,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/json/
 
 flutter_launcher_icons:

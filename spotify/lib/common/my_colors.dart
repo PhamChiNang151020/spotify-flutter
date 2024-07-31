@@ -11,4 +11,7 @@ class MyColors {
   static const defaultBorder = Colors.grey;
   static const errorBorder = Colors.red;
   static const boldBorder = Colors.black;
+
+  static const baseColor = Color.fromARGB(114, 158, 158, 158);
+  static const highlightColor = Color.fromARGB(142, 255, 255, 255);
 }

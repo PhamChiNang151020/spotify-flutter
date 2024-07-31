@@ -43,13 +43,14 @@ class _MainFormState extends BaseBLocFormStateFull<MainBloc, MainForm> {
 
   final List<Widget> listView = [
     BlocProvider(
-        create: (context) => HomeBloc(HomeLoadSuccess(), context),
+        create: (context) =>
+            HomeBloc(HomeInitial(), context)..add(HomeGetNewRelease()),
         child: const HomeForm()),
     BlocProvider(
-        create: (context) => SearchBloc(SearchLoadSuccess(), context),
+        create: (context) => SearchBloc(SearchInitial(), context),
         child: const SearchForm()),
     BlocProvider(
-        create: (context) => LibraryBloc(LibraryLoadSuccess(), context),
+        create: (context) => LibraryBloc(LibraryInitial(), context),
         child: const LibraryForm()),
   ];
 

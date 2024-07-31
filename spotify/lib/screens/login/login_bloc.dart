@@ -25,6 +25,14 @@ class LoginBloc extends BaseBloc {
           key: KeyStore.IS_LOGGED_IN,
           value: true,
         );
+        AppSharedPreferences().setSharedPreferences(
+          key: KeyStore.CLIENT_ID,
+          value: event.clientID,
+        );
+        AppSharedPreferences().setSharedPreferences(
+          key: KeyStore.CLIENT_SECRET,
+          value: event.clientSecret,
+        );
         emit(LoginSuccess());
       } else {
         emit(LoginFailure());

@@ -30,4 +30,8 @@ class AppConfigUrl {
 
   // * API
   static const CURRENT_USER = "me";
+  static const NEW_RELEASES = "browse/new-releases?limit=10&offset=2";
+  static const ARTISTS = "artists?ids=";
+  static const SHOW = "shows?ids=";
+  static const SHOW_DETAIL = "";
 }

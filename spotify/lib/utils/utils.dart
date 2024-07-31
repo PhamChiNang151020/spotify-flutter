@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:spotify/api/app_config_url.dart';
 import 'package:spotify/base_class/storage/app_shared_preferences.dart';
@@ -132,4 +134,15 @@ Future<TokenRes?> appGetToken(
 
 EdgeInsets getPaddingSafeArea(BuildContext context) {
   return MediaQuery.of(context).padding;
+}
+
+Future<dynamic> loadJson(
+  String pathJson,
+) async {
+  // Đọc tệp JSON
+  String jsonString = await rootBundle.loadString(pathJson);
+
+  var jsonMap = jsonDecode(jsonString);
+
+  return jsonMap;
 }

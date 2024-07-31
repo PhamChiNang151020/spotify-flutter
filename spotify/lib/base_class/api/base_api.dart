@@ -5,9 +5,11 @@ import 'dart:developer';
 import 'package:spotify/api/app_error_code.dart';
 import 'package:spotify/base_class/api/base_response.dart';
 import 'package:spotify/common/status_code.dart';
+import 'package:spotify/screens/login/login_page.dart';
 import 'package:spotify/utils/internet_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:spotify/utils/utils.dart';
 
 import '../../widgets/popups/popups.dart';
 import 'config_dio.dart';
@@ -22,7 +24,7 @@ abstract class BaseApi<T> {
   late final BuildContext context;
   String setUrl = "";
   String path = "";
-  BaseResponse _baseResponse = BaseResponse("0", "", {});
+  BaseResponse _baseResponse = BaseResponse({});
   Response? _response;
   DioException? _dioError;
   T? result;
@@ -86,9 +88,9 @@ abstract class BaseApi<T> {
 
   //? =============================== SET ======================================
 
-  _setDataErrorBaseResponse({required String errorCode, String? errorMessage}) {
-    _baseResponse.code = errorCode;
-    _baseResponse.message = errorMessage;
+  _setDataErrorBaseResponse({required int errorCode, String? errorMessage}) {
+    // _baseResponse.code = errorCode;
+    // _baseResponse.message = errorMessage;
   }
 
   _showPopupNoInternet() {
@@ -122,8 +124,10 @@ abstract class BaseApi<T> {
     }
   }
 
-  _showMessageErrorWithTile(
-      {required String title, required String messageError}) {
+  _showMessageErrorWithTile({
+    required String title,
+    required String messageError,
+  }) {
     if (isAutoShowMessage()) {
       PopupError().show(context, title: title, content: messageError);
     }
@@ -132,7 +136,8 @@ abstract class BaseApi<T> {
   String _getFinalUrl() {
     String url = getUrl();
     if (path.isNotEmpty) {
-      url = "$url/$path}";
+      //* Use Path with param
+      url = "$url$path";
     }
     if (getUrl().isEmpty) {
       url = setUrl;
@@ -153,6 +158,7 @@ abstract class BaseApi<T> {
       _showPopupNoInternet();
       return;
     }
+
     if (setUrl.isEmpty && getUrl().isEmpty) {
       _setDataErrorBaseResponse(
         errorCode: AppErrorCode.REQUEST_URL_EMPTY,
@@ -167,7 +173,22 @@ abstract class BaseApi<T> {
       data?.keys.where((k) => data?[k] == null).toList().forEach(data!.remove);
     }
 
-    _showLoading();
+    switch (getRequestMethod()) {
+      case RequestMethod.POST:
+        await post();
+      case RequestMethod.GET:
+        await get();
+      case RequestMethod.PUT:
+        await put();
+      case RequestMethod.DELETE:
+        await delete();
+        break;
+      case RequestMethod.PATCH:
+        await patch();
+        break;
+    }
+
+    _hideLoading();
   }
 
   //*  ======================= INIT METHOD =======================
@@ -179,6 +200,7 @@ abstract class BaseApi<T> {
         response = await _dio.get(url, queryParameters: data);
       } else {
         response = await _dio.get(url);
+        _showLoading();
       }
 
       _handleResponse(response);
@@ -276,28 +298,9 @@ abstract class BaseApi<T> {
     _hideLoading();
     if (isAutoHandleResponse()) {
       try {
-        _baseResponse = BaseResponse<T>.fromJson(response.data);
-        log("DATA === ${_baseResponse.code}", name: "RESPONSE");
-
-        log("STATUS CODE === ${_baseResponse.code}", name: "RESPONSE");
-        if (_baseResponse.code == AppErrorCode.SUCCESS) {
-          if (T == bool) {
-            result = (_baseResponse.code == AppErrorCode.SUCCESS) as T?;
-          } else {
-            result = convertJson(baseResponse.data);
-          }
-        } else if (baseResponse.code == AppErrorCode.TOKEN_INVALID) {
-          //log out
-        } else if (baseResponse.code == AppErrorCode.EMAIL_IS_EXIST) {
-          _showMessageError(
-              AppErrorCode.getMessageError(AppErrorCode.EMAIL_IS_EXIST));
-        } else if (baseResponse.code == AppErrorCode.SERVER_ERROR) {
-          _showMessageError(
-              AppErrorCode.getMessageError(AppErrorCode.SERVER_ERROR));
-        } else {
-          _showMessageError(_baseResponse.message ??
-              AppErrorCode.getMessageError(AppErrorCode.SOMETHING_WENT_WRONG));
-        }
+        // _baseResponse = BaseResponse<T>.fromJson(response.data);
+        // _baseResponse = response.data;
+        result = convertJson(baseResponse.data);
       } catch (error) {
         log("ERROR === ${error.toString()}", name: "RESPONSE");
         _showErrorSomethingWentWrong();
@@ -338,9 +341,9 @@ abstract class BaseApi<T> {
         _showMessageErrorWithTile(
           title: "Sign in Failure",
           messageError:
-              AppErrorCode.getMessageError(AppErrorCode.TOKEN_INVALID),
+              AppErrorCode.getMessageError(AppErrorCode.TOKEN_INVALID_CODE),
         );
-        // gotoLoginPage(context: context);
+
         //log out
         return;
       }
@@ -349,3 +352,24 @@ abstract class BaseApi<T> {
     }
   }
 }
+// if(_baseResponse.){}
+
+// if (_baseResponse.code == AppErrorCode.SUCCESS) {
+//   if (T == bool) {
+//     result = (_baseResponse.code == AppErrorCode.SUCCESS) as T?;
+//   } else {
+//     result = convertJson(baseResponse.data);
+//   }
+// }
+//  else if (baseResponse.code == AppErrorCode.TOKEN_INVALID) {
+//   //log out
+// } else if (baseResponse.code == AppErrorCode.EMAIL_IS_EXIST) {
+//   _showMessageError(
+//       AppErrorCode.getMessageError(AppErrorCode.EMAIL_IS_EXIST));
+// } else if (baseResponse.code == AppErrorCode.SERVER_ERROR) {
+//   _showMessageError(
+//       AppErrorCode.getMessageError(AppErrorCode.SERVER_ERROR));
+// } else {
+//   _showMessageError(_baseResponse.message ??
+//       AppErrorCode.getMessageError(AppErrorCode.SOMETHING_WENT_WRONG));
+// }

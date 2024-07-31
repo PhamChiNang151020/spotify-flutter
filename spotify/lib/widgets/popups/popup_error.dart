@@ -20,15 +20,18 @@ class PopupError {
     return Container(
       width: width,
       height: height,
-      color: MyColors.defaultColor,
+      color: Color.fromARGB(255, 0, 243, 81),
+      child: const Text("data"),
     );
   });
 
-  show(BuildContext context,
-      {required String title,
-      required String content,
-      String textButton = "",
-      Function()? onButtonClick}) {
+  show(
+    BuildContext context, {
+    required String title,
+    required String content,
+    String textButton = "",
+    Function()? onButtonClick,
+  }) {
     if (isShow) return;
 
     this.title = title;
