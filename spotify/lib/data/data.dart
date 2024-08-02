@@ -1,5 +1,5 @@
 export 'mock_models/mock_models.dart';
-export 'models/artists_model.dart';
+export 'models/artists/artists_model.dart';
 export 'models/external_urls.dart';
 export 'models/home/item_navbar.dart';
 export 'models/img_models.dart';

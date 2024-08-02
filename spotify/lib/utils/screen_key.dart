@@ -12,3 +12,7 @@ const HOME_SCREEN = "home_screen";
 const SEARCH_SCREEN = "search_screen";
 const LIBRARY_SCREEN = "library_screen";
 const PROFILE_SCREEN = "profile_screen";
+
+const PLAYLIST_SCREEN = "playlist_screen";
+
+const ARTISTS_DETAIL_SCREEN = "artists_detail_screen";

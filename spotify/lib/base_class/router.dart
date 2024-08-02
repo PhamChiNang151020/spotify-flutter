@@ -1,9 +1,11 @@
 // import 'package:fertility/page/log_in/log_in_page.dart';
+import 'package:spotify/screens/artists_detail/artists_detail.dart';
 import 'package:spotify/screens/coming_soon/coming_soon_page.dart';
 import 'package:spotify/screens/home/home.dart';
 import 'package:spotify/screens/library/library_page.dart';
 import 'package:spotify/screens/login/login.dart';
 import 'package:spotify/screens/main/main_page.dart';
+import 'package:spotify/screens/playlist/playlist.dart';
 
 import 'package:spotify/screens/profile/profile_page.dart';
 import 'package:spotify/screens/search/search.dart';
@@ -33,6 +35,10 @@ PageRouteBuilder routerWithData(RouteSettings settings) {
           return libraryPage(settings);
         case PROFILE_SCREEN:
           return profilePage(settings);
+        case PLAYLIST_SCREEN:
+          return playlistPage(settings);
+        case ARTISTS_DETAIL_SCREEN:
+          return artistsDetailPage(settings);
         default:
           return comingSoonPage(settings);
       }

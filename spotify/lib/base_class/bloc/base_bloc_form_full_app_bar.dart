@@ -19,8 +19,9 @@ abstract class BaseBLocFormStateFullAppBar<
             appBar: AppBar(
               centerTitle: true,
               title: getTitle(),
+              
             ),
-            body: SafeArea(child: getWidget(context, blocState)),
+            body: getWidget(context, blocState),
           );
         },
       ),

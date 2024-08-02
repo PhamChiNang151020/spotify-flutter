@@ -4,8 +4,7 @@ import 'package:spotify/base_class/bloc/base_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:spotify/common/my_assets.dart';
-import 'package:spotify/screens/home/widgets/loading_albums.dart';
-import 'package:spotify/screens/home/widgets/loading_artists.dart';
+import 'package:spotify/screens/artists_detail/artists_detail.dart';
 
 import 'package:spotify/utils/utils.dart';
 import 'package:spotify/widgets/svg_png/widget_icon.dart';
@@ -173,30 +172,35 @@ class _HomeFormState extends BaseBLocFormStateFull<HomeBloc, HomeForm> {
             itemBuilder: (context, index) {
               final item = listArtist[index];
 
-              return SizedBox(
-                width: itemWidth,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(70),
-                      child: Image.network(
-                        item.images.first.url,
+              return GestureDetector(
+                onTap: () {
+                  gotoArtistsDetailPage(context: context, artist: item);
+                },
+                child: SizedBox(
+                  width: itemWidth,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: Image.network(
+                          item.images!.first.url,
+                          width: imageSize,
+                          height: imageSize,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(
                         width: imageSize,
-                        height: imageSize,
-                        fit: BoxFit.contain,
+                        child: Text(
+                          item.name ?? "",
+                          overflow: TextOverflow.ellipsis,
+                          style: _stylesSubTitle(),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: imageSize,
-                      child: Text(
-                        item.name,
-                        overflow: TextOverflow.ellipsis,
-                        style: _stylesSubTitle(),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },

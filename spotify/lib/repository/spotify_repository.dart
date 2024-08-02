@@ -1,12 +1,13 @@
+import 'package:spotify/api/artists/artists_detail_api.dart';
 import 'package:spotify/api/home/new_release_api.dart';
 import 'package:spotify/api/home/show/several_show_api.dart';
 import 'package:spotify/base_class/api/base_repository.dart';
 import 'package:spotify/common/my_path.dart';
-import 'package:spotify/data/models/show/show_model.dart';
+import 'package:spotify/data/models/artists/artists_detail_model.dart';
 
 import 'package:spotify/utils/utils.dart';
 
-import '../api/home/artist_api.dart';
+import '../api/artists/artist_api.dart';
 import '../data/data.dart';
 
 class SpotifyRepository extends BaseRepository {
@@ -27,6 +28,16 @@ class SpotifyRepository extends BaseRepository {
       String pathApi = createIdString(artists);
 
       return SeveralArtistsApi(context).execute(path: pathApi);
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  Future<ArtistsDetailModel?> getArtistsDetail(String id) async {
+    try {
+      String pathApi = "$id/albums";
+      return ArtistsDetailApi(context).execute(path: pathApi);
     } catch (e) {
       logger.e(e);
       return null;

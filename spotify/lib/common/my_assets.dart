@@ -26,4 +26,17 @@ class MyAssets {
   static const String icLibInActive = "assets/icons/lib_inactive.svg";
 
   static const String icSetting = "assets/icons/setting.svg";
+  //
+  static const String icHeart = "assets/icons/ic_heart.svg";
+  static const String icShuffle = "assets/icons/ic_shuffle.svg";
+  static const String icBack = "assets/icons/ic_back.svg";
+  static const String icPlay = "assets/icons/ic_play.svg";
+  static const String icPlayGreen = "assets/icons/ic_play_green.svg";
+  static const String icPause = "assets/icons/ic_pause.svg";
+  static const String icNext = "assets/icons/ic_next.svg";
+  static const String icRepeat = "assets/icons/ic_repeat.svg";
+
+  static const String icAirplay = "assets/icons/ic_airplay.svg";
+  static const String icVol = "assets/icons/ic_vol.svg";
+  static const String icMore = "assets/icons/ic_more.svg";
 }
