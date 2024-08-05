@@ -7,3 +7,10 @@ class GetArtistsDetailEvent extends BaseBlocEvent {
     required this.artists,
   });
 }
+
+class RefreshArtistsDetailEvent extends BaseBlocEvent {
+  final Artist artists;
+  RefreshArtistsDetailEvent({
+    required this.artists,
+  });
+}

@@ -1,4 +1,5 @@
 export 'mock_models/mock_models.dart';
+export 'models/artists/artists_detail_model.dart';
 export 'models/artists/artists_model.dart';
 export 'models/external_urls.dart';
 export 'models/home/item_navbar.dart';
@@ -8,3 +9,4 @@ export 'models/new_release_model.dart';
 export 'models/show/show_detail_model.dart';
 export 'models/show/show_model.dart';
 export 'models/token/token_res.dart';
+export 'models/tracks/popular_tracks_model.dart';

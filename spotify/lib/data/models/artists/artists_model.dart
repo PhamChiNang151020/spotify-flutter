@@ -96,16 +96,16 @@ class Artist {
 
 class Followers {
   dynamic href;
-  int total;
+  int? total;
 
   Followers({
-    required this.href,
-    required this.total,
+    this.href,
+    this.total,
   });
 
   factory Followers.fromJson(Map<String, dynamic> json) => Followers(
-        href: json["href"],
-        total: json["total"],
+        href: json["href"] ?? "",
+        total: json["total"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

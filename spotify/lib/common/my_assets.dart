@@ -39,4 +39,6 @@ class MyAssets {
   static const String icAirplay = "assets/icons/ic_airplay.svg";
   static const String icVol = "assets/icons/ic_vol.svg";
   static const String icMore = "assets/icons/ic_more.svg";
+
+  static const String icFollower = "assets/icons/ic_follower.png";
 }

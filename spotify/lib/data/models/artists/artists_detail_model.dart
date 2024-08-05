@@ -11,18 +11,12 @@ String artistsDetailModelToJson(ArtistsDetailModel data) =>
 class ArtistsDetailModel {
   String href;
   int limit;
-  String next;
-  int offset;
-  dynamic previous;
   int total;
   List<ArtistsAlbums> items;
 
   ArtistsDetailModel({
     required this.href,
     required this.limit,
-    required this.next,
-    required this.offset,
-    required this.previous,
     required this.total,
     required this.items,
   });
@@ -31,9 +25,6 @@ class ArtistsDetailModel {
       ArtistsDetailModel(
         href: json["href"],
         limit: json["limit"],
-        next: json["next"],
-        offset: json["offset"],
-        previous: json["previous"],
         total: json["total"],
         items: List<ArtistsAlbums>.from(
             json["items"].map((x) => ArtistsAlbums.fromJson(x))),
@@ -42,9 +33,6 @@ class ArtistsDetailModel {
   Map<String, dynamic> toJson() => {
         "href": href,
         "limit": limit,
-        "next": next,
-        "offset": offset,
-        "previous": previous,
         "total": total,
         "items": List<dynamic>.from(items.map((x) => x.toJson())),
       };

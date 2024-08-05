@@ -35,4 +35,6 @@ class AppConfigUrl {
   static const ARTISTS_DETAIL = "artists/"; // *artists/{id}/albums
   static const SHOW = "shows?ids=";
   static const SHOW_DETAIL = "";
+  static const POPULAR_TRACKS = "artists/"; // * {id}/top-tracks
+  static const RELATED_ARTISTS = "artists/"; // * {id} from related artists
 }

@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:spotify/api/artists/artists_detail_api.dart';
+import 'package:spotify/api/artists/related_artists_api.dart';
 import 'package:spotify/api/home/new_release_api.dart';
 import 'package:spotify/api/home/show/several_show_api.dart';
+import 'package:spotify/api/popular_tracks_api.dart';
 import 'package:spotify/base_class/api/base_repository.dart';
 import 'package:spotify/common/my_path.dart';
-import 'package:spotify/data/models/artists/artists_detail_model.dart';
 
 import 'package:spotify/utils/utils.dart';
 
@@ -50,6 +53,28 @@ class SpotifyRepository extends BaseRepository {
       String pathApi = createIdString(show);
 
       return SeveralShowApi(context).execute(path: pathApi);
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  Future<PopularTracksModel?> getPopularTracks(String id) async {
+    try {
+      // List<MockModel> tracks = await loadMockModel(MyPath.POPULAR_TRACKS);
+      String pathApi = "$id/top-tracks";
+
+      return PopularTracksApi(context).execute(path: pathApi);
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  Future<SeveralArtistsModel?> getRelatedArtists(String id) async {
+    try {
+      String pathApi = "$id/related-artists";
+      return RelatedArtistsApi(context).execute(path: pathApi);
     } catch (e) {
       logger.e(e);
       return null;
