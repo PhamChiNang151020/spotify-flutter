@@ -6,6 +6,7 @@ export 'models/home/item_navbar.dart';
 export 'models/img_models.dart';
 export 'models/models.dart';
 export 'models/new_release_model.dart';
+export 'models/setting_models.dart';
 export 'models/show/show_detail_model.dart';
 export 'models/show/show_model.dart';
 export 'models/token/token_res.dart';

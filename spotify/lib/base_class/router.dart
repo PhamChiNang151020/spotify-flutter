@@ -9,6 +9,7 @@ import 'package:spotify/screens/playlist/playlist.dart';
 
 import 'package:spotify/screens/profile/profile_page.dart';
 import 'package:spotify/screens/search/search.dart';
+import 'package:spotify/screens/setting/setting.dart';
 import 'package:spotify/screens/sign_up/sign_up_page.dart';
 import 'package:spotify/screens/splash_screen/splash_screen_page.dart';
 import 'package:spotify/utils/screen_key.dart';
@@ -39,6 +40,8 @@ PageRouteBuilder routerWithData(RouteSettings settings) {
           return playlistPage(settings);
         case ARTISTS_DETAIL_SCREEN:
           return artistsDetailPage(settings);
+        case SETTING_SCREEN:
+          return settingPage(settings);
         default:
           return comingSoonPage(settings);
       }

@@ -16,3 +16,4 @@ const PROFILE_SCREEN = "profile_screen";
 const PLAYLIST_SCREEN = "playlist_screen";
 
 const ARTISTS_DETAIL_SCREEN = "artists_detail_screen";
+const SETTING_SCREEN = "setting_screen";

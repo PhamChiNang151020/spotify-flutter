@@ -1,3 +1,4 @@
+import 'package:spotify/base_class/bloc/base_bloc_form_full_app_bar.dart';
 import 'package:spotify/base_class/bloc/base_bloc_form_state_full.dart';
 import 'package:spotify/base_class/bloc/base_state.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,19 @@ class ComingSoonForm extends StatefulWidget {
 }
 
 class _ComingSoonFormState
-    extends BaseBLocFormStateFull<ComingSoonBloc, ComingSoonForm> {
+    extends BaseBLocFormStateFullAppBar<ComingSoonBloc, ComingSoonForm> {
   @override
   Widget getWidget(BuildContext context, BaseBlocState state) {
-    return Container();
+    return const Center(
+      child: Text("COMING SOON"),
+    );
   }
 
   @override
   void listener(BuildContext context, BaseBlocState state) {}
+
+  @override
+  Widget getTitle() {
+    return const Text("Coming Soon");
+  }
 }

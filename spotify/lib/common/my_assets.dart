@@ -9,6 +9,7 @@ class MyAssets {
   static const String icSearch = "assets/icons/search.png";
 
   //* IMAGES
+  static const String imgAvatar = "assets/images/avt.png";
   static const String img_bg = "assets/images/";
 
   //* NEW

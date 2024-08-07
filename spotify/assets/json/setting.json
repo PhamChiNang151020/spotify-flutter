@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "name": "Account"
+  },
+  {
+    "id": "2",
+    "name": "Data Saver"
+  },
+  {
+    "id": "3",
+    "name": "Languages"
+  },
+  {
+    "id": "4",
+    "name": "Playback"
+  },
+  {
+    "id": "5",
+    "name": "Explicit Content"
+  },
+  {
+    "id": "6",
+    "name": "Devices"
+  },
+  {
+    "id": "7",
+    "name": "Car"
+  },
+  {
+    "id": "8",
+    "name": "Social"
+  },
+  {
+    "id": "9",
+    "name": "Voice Assistant & Apps"
+  },
+  {
+    "id": "10",
+    "name": "Audio Quality"
+  },
+  {
+    "id": "11",
+    "name": "Storage"
+  }
+]

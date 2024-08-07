@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:spotify/api/app_config_url.dart';
 import 'package:spotify/api/app_error_code.dart';
 import 'package:spotify/base_class/api/base_response.dart';
 import 'package:spotify/common/status_code.dart';
@@ -196,13 +197,18 @@ abstract class BaseApi<T> {
     try {
       Response response;
       String url = _getFinalUrl();
+      Options options = Options(
+        headers: this._dio.options.headers,
+        method: this._dio.options.method,
+      );
+
       if (data != null) {
         response = await _dio.get(url, queryParameters: data);
       } else {
         response = await _dio.get(url);
         _showLoading();
       }
-
+      _logRequestInfo(url: "${AppConfigUrl.BASE_URL}$url", res: response);
       _handleResponse(response);
     } on DioException catch (error) {
       _handleErrorRequest(error);
@@ -223,7 +229,7 @@ abstract class BaseApi<T> {
         response = await _dio.post(url,
             data: data, options: Options(contentType: Headers.jsonContentType));
       }
-
+      _logRequestInfo(url: "${AppConfigUrl.BASE_URL}$url", res: response);
       _handleResponse(response);
     } on DioException catch (error) {
       _handleErrorRequest(error);
@@ -244,7 +250,7 @@ abstract class BaseApi<T> {
         response = await _dio.delete(url,
             data: data, options: Options(contentType: Headers.jsonContentType));
       }
-
+      _logRequestInfo(url: "${AppConfigUrl.BASE_URL}$url", res: response);
       _handleResponse(response);
     } on DioException catch (error) {
       _handleErrorRequest(error);
@@ -265,7 +271,7 @@ abstract class BaseApi<T> {
         response = await _dio.put(url,
             data: data, options: Options(contentType: Headers.jsonContentType));
       }
-
+      _logRequestInfo(url: "${AppConfigUrl.BASE_URL}$url", res: response);
       _handleResponse(response);
     } on DioException catch (error) {
       _handleErrorRequest(error);
@@ -286,11 +292,41 @@ abstract class BaseApi<T> {
         response = await _dio.patch(url,
             data: data, options: Options(contentType: Headers.jsonContentType));
       }
-
+      _logRequestInfo(url: "${AppConfigUrl.BASE_URL}$url", res: response);
       return _handleResponse(response);
     } on DioException catch (error) {
       return _handleErrorRequest(error);
     }
+  }
+
+  void _logRequestInfo({
+    required String url,
+    required Response<dynamic> res,
+  }) {
+    print(
+        "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ API ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ");
+    var options = _getOptions();
+
+    myPrint("URL:     $url");
+    myPrint("Method:  ${options.method}");
+    myPrint("Headers: ${options.headers}");
+
+    myPrint("\n$res\n");
+    if (data != null) {}
+    print(
+        "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ");
+  }
+
+  Options _getOptions() {
+    return Options(
+      headers: _dio.options.headers,
+      method: _dio.options.method,
+      responseType: ResponseType.json,
+    );
+  }
+
+  void myPrint(String messages) {
+    print("|   $messages");
   }
 
   //* ========================= HANDLE RESPONSES =========================

@@ -54,4 +54,14 @@ class AppSharedPreferences {
 
     return value ?? defaultValue;
   }
+
+  Future<bool> resetSharedPreferences() async {
+    _prefs ??= await SharedPreferences.getInstance();
+    bool result = await _prefs!.clear();
+    log(
+      "RESET ALL PREFERENCES",
+      name: "APP_SHARED_PREFERENCES",
+    );
+    return result;
+  }
 }

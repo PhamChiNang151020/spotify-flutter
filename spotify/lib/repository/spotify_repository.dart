@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:flutter/services.dart';
 import 'package:spotify/api/artists/artists_detail_api.dart';
 import 'package:spotify/api/artists/related_artists_api.dart';
 import 'package:spotify/api/home/new_release_api.dart';
@@ -7,10 +9,12 @@ import 'package:spotify/api/home/show/several_show_api.dart';
 import 'package:spotify/api/popular_tracks_api.dart';
 import 'package:spotify/base_class/api/base_repository.dart';
 import 'package:spotify/common/my_path.dart';
+import 'package:spotify/data/models/profile/my_profile_model.dart';
 
 import 'package:spotify/utils/utils.dart';
 
 import '../api/artists/artist_api.dart';
+import '../api/profile/my_profile_api.dart';
 import '../data/data.dart';
 
 class SpotifyRepository extends BaseRepository {
@@ -75,6 +79,21 @@ class SpotifyRepository extends BaseRepository {
     try {
       String pathApi = "$id/related-artists";
       return RelatedArtistsApi(context).execute(path: pathApi);
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  Future<List<SettingModel>> getSetting() async {
+    String jsonString = await rootBundle.loadString(MyPath.SETTING);
+    List<SettingModel> settings = settingModelFromJson(jsonString);
+    return settings;
+  }
+
+  Future<MyProfileModel?> getCurrentProfile() async {
+    try {
+      return MyProfileApi(context).execute();
     } catch (e) {
       logger.e(e);
       return null;

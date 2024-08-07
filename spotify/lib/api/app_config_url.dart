@@ -13,7 +13,7 @@ class AppConfigUrl {
               : "";
 
   //* BASE URL
-  static const BASE_URL = "$HOST/";
+  static const BASE_URL = HOST;
   //* ENV
   static const DEV = 'https://api.spotify.com/v1/';
   static const QAT = 'https://code_base_qat';

@@ -5,6 +5,7 @@ import 'package:spotify/base_class/bloc/base_state.dart';
 import 'package:flutter/material.dart';
 import 'package:spotify/common/my_assets.dart';
 import 'package:spotify/screens/artists_detail/artists_detail.dart';
+import 'package:spotify/screens/setting/setting.dart';
 
 import 'package:spotify/utils/utils.dart';
 import 'package:spotify/widgets/svg_png/widget_icon.dart';
@@ -48,7 +49,9 @@ class _HomeFormState extends BaseBLocFormStateFull<HomeBloc, HomeForm> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    gotoSettingPage(context: context);
+                  },
                   child: const SvgWidget(assetName: MyAssets.icSetting),
                 ),
               ],
